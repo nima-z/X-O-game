@@ -1,7 +1,15 @@
 .cell {
-    background-color: rgb(92, 109, 141);
+    background-color: rgb(64, 82, 116);
     text-align: center;
-    border: 2px solid rgb(128, 66, 17);
+    border: 1px solid rgb(109, 44, 170);
     border-radius: 1rem;
-    box-shadow: 0 0 10px 1px rgb(155, 133, 105);
+    box-shadow: 0 0 10px 0 rgb(24, 41, 82);
+    width: 100px;
+    height:100px
+}
+
+.cell:hover {
+    cursor: pointer;
+    background-color: rgb(92, 109, 141);
+
 }

@@ -10,9 +10,6 @@ const board = [
 
 
 function Board() {
-
-
-
     function contentTransporter(content) {
         console.log(content);
         console.log('In Board')
@@ -25,8 +22,8 @@ function Board() {
                     <Row
                         boardRow={row}
                         transportToBoard={contentTransporter}
-                        key={index} 
-                        />)}
+                        key={index}
+                    />)}
             </tbody>
         </table>
     )

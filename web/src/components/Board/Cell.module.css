@@ -1,0 +1,7 @@
+.cell {
+    background-color: rgb(92, 109, 141);
+    text-align: center;
+    border: 2px solid rgb(128, 66, 17);
+    border-radius: 1rem;
+    box-shadow: 0 0 10px 1px rgb(155, 133, 105);
+}

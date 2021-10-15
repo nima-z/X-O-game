@@ -1,0 +1,11 @@
+.board {
+    width: 100%;
+    max-width: 30rem;
+    background-color: rgb(20, 20, 22);
+    height: 30rem;
+    /* max-height: 100%; */
+    margin: 4rem auto;
+    border-collapse: separate;
+    border: 3px solid rgb(128, 66, 17);
+    border-radius: 1rem;
+}

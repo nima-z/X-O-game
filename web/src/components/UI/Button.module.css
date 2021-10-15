@@ -1,0 +1,16 @@
+.button {
+    background-color: rgb(241, 209, 204);
+    color:rgb(138, 35, 35);
+    font-size: 1.1rem;
+    font-weight: 600;
+    padding: 0.9rem 3rem;
+    margin: 35vh auto;
+    border: 1px solid rgb(133, 96, 91);
+    border-radius: 1.3rem;
+    box-shadow: 0 0 5px 0px rgb(241, 209, 204);
+    
+}
+
+.button:hover {
+    box-shadow: 0 0 5px 1px rgb(241, 209, 204);
+}

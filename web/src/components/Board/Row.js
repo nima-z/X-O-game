@@ -5,7 +5,6 @@ import styles from "./Row.module.css";
 function Row(props) {
   function contentTransporter(content) {
     props.transportToBoard(content);
-    console.log(props.players);
   }
 
   return (
@@ -15,7 +14,7 @@ function Row(props) {
           item={cell}
           key={index}
           transportToUp={contentTransporter}
-          action={props.action}
+          isTurn={props.isTurn}
         >
           {cell}
         </Cell>

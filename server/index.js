@@ -47,6 +47,12 @@ wsServer.on("request", (request) => {
       const j = cellId % BOARD_WIDTH;
       const game = games[gameId];
       game.board[i][j].player = game.players[playerId];
+      Object.keys(game.players).forEach((pId) => {
+        game.players[pId] = {
+          ...game.players[pId],
+          isTurn: !game.players[pId].isTurn,
+        };
+      });
       games[gameId] = game;
       const responseBody = { type: "update-game", game: games[gameId] };
       broadcastPlayers(game, responseBody);

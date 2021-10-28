@@ -15,6 +15,7 @@
 .button:hover {
     background-color: rgb(236, 190, 183);
     border: 1px solid rgb(133, 101, 101);
-    box-shadow: 0 0 5px 1px rgb(241, 209, 204);
+    box-shadow: 0 0 5px 10px rgb(241, 209, 204);
     cursor: pointer;
+    transition: box-shadow 1s
 }

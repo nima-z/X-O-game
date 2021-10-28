@@ -1,28 +1,19 @@
-import React, { useState, Fragment } from 'react';
+import React, { useState, Fragment } from "react";
 
-// import IconX from '..Icons/IconX';
-import IconO from '../Icons/IconO';
-
-import styles from './Cell.module.css';
+import styles from "./Cell.module.css";
 
 function Cell(props) {
-    const [choosed, setChoosed] = useState(false);
+  function clickHandler() {
+    props.transportToUp(props.children);
+  }
 
-    function clickHandler() {
-        setChoosed(true)
-        props.transportToUp(props.children)
-    }
-
-    return (
-        <Fragment>
-            {!choosed && <td className={styles.cell} onClick={clickHandler} ></td>}
-            {choosed && <td className={styles.cell} onClick={clickHandler} >
-
-                    <IconO />
-
-            </td>}
-        </Fragment>
-    )
+  return (
+    <Fragment>
+      <td className={styles.cell} onClick={clickHandler}>
+        {props.action}
+      </td>
+    </Fragment>
+  );
 }
 
 export default Cell;

@@ -46,8 +46,7 @@ wsServer.on("request", (request) => {
       const i = Math.floor(cellId / BOARD_WIDTH);
       const j = cellId % BOARD_WIDTH;
       const game = games[gameId];
-      game.board[i][j].playerId = playerId;
-      game.players = game.players.map((p) => ({ ...p, isTurn: !p.isTurn }));
+      game.board[i][j].player = game.players[playerId];
       games[gameId] = game;
       const responseBody = { type: "update-game", game: games[gameId] };
       broadcastPlayers(game, responseBody);
@@ -60,8 +59,11 @@ server.listen(8080);
 function getAvailableGame(playerId) {
   for (let gameId of Object.keys(games)) {
     const game = games[gameId];
-    if (game.players.length < PLAYER_LIMIT) {
-      game.players.push({ playerId, action: "o", isTurn: false });
+    if (Object.keys(game.players).length < PLAYER_LIMIT) {
+      game.players = {
+        ...game.players,
+        [playerId]: { playerId, action: "o", isTurn: false },
+      };
       games[gameId] = game;
       return game;
     }
@@ -72,9 +74,10 @@ function getAvailableGame(playerId) {
 }
 
 function newGame(playerId) {
+  const p = { playerId, action: "x", isTurn: true };
   return {
     id: uuidv4(),
-    players: [{ playerId, action: "x", isTurn: true }],
+    players: { [p.playerId]: p },
     board: createBoard(),
   };
 }
@@ -85,7 +88,7 @@ function createBoard() {
   for (let i = 0; i < BOARD_WIDTH; i++) {
     const row = [];
     for (let j = 0; j < BOARD_WIDTH; j++) {
-      row.push({ id: i * BOARD_WIDTH + j, playerId: null });
+      row.push({ id: i * BOARD_WIDTH + j, player: null });
     }
     board.push(row);
   }
@@ -93,7 +96,8 @@ function createBoard() {
 }
 
 function broadcastPlayers(game, responseBody) {
-  game.players.forEach((p) => {
-    players[p.playerId].connection.send(JSON.stringify(responseBody));
+  Object.keys(game.players).forEach((pId) => {
+    const p = players[pId];
+    p.connection.send(JSON.stringify(responseBody));
   });
 }

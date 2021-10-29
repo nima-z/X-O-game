@@ -36,12 +36,12 @@ function App() {
     }
 
     if (response.type === "update-game") {
-      const game = {
+      const gameObj = {
         ...response.game,
         isTurn: response.game.players[playerId].isTurn,
       };
 
-      setGame((game) => ({ ...game, ...response.game }));
+      setGame((game) => ({ ...game, ...gameObj}));
     }
   };
 

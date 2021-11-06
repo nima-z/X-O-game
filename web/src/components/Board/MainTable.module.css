@@ -1,0 +1,9 @@
+.container {
+  width: 100%;
+  max-width: 38rem;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+
+  margin: 4rem auto;
+}

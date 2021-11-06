@@ -1,21 +1,15 @@
 .button {
-    background-color: rgb(160, 121, 115);
-    color:rgb(47, 23, 23);
-    font-size: 1.1rem;
-    font-weight: 600;
-    padding: 0.9rem 3rem;
-    margin: 35vh auto;
-    border: 1px solid rgb(47, 23, 23);
-    border-radius: 1.3rem;
-    box-shadow: 0 0 5px 0px rgb(241, 209, 204);
-
-    
+  width: 60px;
+  height: 60px;
+  background-color: #e3edf7;
+  padding: 0.9rem 1rem;
+  border-radius: 20px;
+  border: none;
+  box-shadow: -4px -2px 16px #ffffff, 4px 2px 16px rgba(136, 165, 191, 0.48);
+  cursor: pointer;
 }
 
 .button:hover {
-    background-color: rgb(236, 190, 183);
-    border: 1px solid rgb(133, 101, 101);
-    box-shadow: 0 0 5px 10px rgb(241, 209, 204);
-    cursor: pointer;
-    transition: box-shadow 1s
+  background-color: rgb(157, 168, 185);
+  transition: 0.5s;
 }

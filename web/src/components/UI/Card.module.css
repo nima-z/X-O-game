@@ -1,0 +1,20 @@
+.card {
+  background: linear-gradient(
+      200deg,
+      rgb(255, 255, 255),
+      rgba(255, 0, 0, 0) 100%
+    ),
+    linear-gradient(
+      300deg,
+      rgba(154, 167, 182, 0.959),
+      rgba(142, 148, 142, 0) 60%
+    );
+  width: 100%;
+  max-width: 30.1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 30.1rem;
+  max-height: 100%;
+  border-radius: 24px;
+}

@@ -1,0 +1,12 @@
+.scores {
+  display: flex;
+  justify-content: space-around;
+  background-color: bisque;
+  margin-top: 1rem;
+}
+
+.score {
+  width: 3rem;
+  display: flex;
+  justify-content: space-between;
+}

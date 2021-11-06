@@ -1,6 +1,6 @@
 import React, { useState, Fragment } from "react";
 
-import Board from "./components/Board/Board";
+import MainTable from "./components/Board/MainTable";
 import Button from "./components/UI/Button";
 
 import "./App.css";
@@ -15,6 +15,7 @@ let board = null;
 function App() {
   const [isPlay, setIsPlay] = useState(false);
   const [game, setGame] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   ws.onmessage = function (message) {
     const response = JSON.parse(message.data);
@@ -23,14 +24,16 @@ function App() {
     }
 
     if (response.type === "join-game") {
+      setIsLoading(true);
       const game = {
         ...response.game,
         isTurn: response.game.players[playerId].isTurn,
       };
 
-      console.log(game);
+      console.log(response.game.players);
       setGame(game);
       if (Object.keys(response.game.players).length === 2) {
+        setIsLoading(false);
         setIsPlay(true);
       }
     }
@@ -41,7 +44,7 @@ function App() {
         isTurn: response.game.players[playerId].isTurn,
       };
 
-      setGame((game) => ({ ...game, ...gameObj}));
+      setGame((game) => ({ ...game, ...gameObj }));
     }
   };
 
@@ -64,7 +67,8 @@ function App() {
   return (
     <Fragment>
       {!isPlay && <Button onClick={startGameHandler}>Play</Button>}
-      {isPlay && <Board game={game} extractor={extractor} />}
+      {isLoading && <p className="loadingText">Waiting for the Opponent...</p>}
+      {isPlay && <MainTable game={game} extractor={extractor} />}
     </Fragment>
   );
 }

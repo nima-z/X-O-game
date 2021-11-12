@@ -4,21 +4,21 @@ import styles from "./NavOption.module.css";
 function NavOption() {
   return (
     <div className={styles.options}>
-      <div className={styles.actions}>
+      <div className={`${styles.actions} ${styles.uiMode}`}>
         <Button></Button>
-        <p>One Player</p>
+        <p>Dark mode</p>
       </div>
-      <div className={styles.actions}>
+      <div className={`${styles.actions} ${styles.sound}`}>
         <Button></Button>
-        <p>Sound Off</p>
+        <p>Sound</p>
       </div>
-      <div className={styles.actions}>
-        <Button></Button>
-        <p>Reset Game</p>
-      </div>
-      <div className={styles.actions}>
-        <Button></Button>
+      <div className={`${styles.actions} ${styles.fullscreen}`}>
+        <Button id="fullscreen"></Button>
         <p>Fullscreen</p>
+      </div>
+      <div className={`${styles.actions} ${styles.resign}`}>
+        <Button id="resign"></Button>
+        <p>Resign</p>
       </div>
     </div>
   );

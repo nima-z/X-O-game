@@ -1,0 +1,10 @@
+.holder {
+  width: 38px;
+  background-color: #e3edf7;
+  box-shadow: -5px -5px 20px rgba(255, 255, 255, 0.513),
+    4px 4px 15px rgba(106, 115, 122, 0.486);
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

@@ -9,7 +9,9 @@
   cursor: pointer;
 }
 
-.button:hover {
-  background-color: rgb(157, 168, 185);
-  transition: 0.5s;
+.button:active {
+  box-shadow: inset -3px -3px 7px #ffffff,
+    inset 3px 3px 7px rgba(136, 165, 191, 0.48);
+  border: 1px solid rgb(255, 255, 255);
+  background-size: 23px;
 }

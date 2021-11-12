@@ -12,3 +12,25 @@ p {
   font-size: 14px;
   font-weight: 700;
 }
+
+.actions.uiMode Button {
+  background-image: url("../../Icons/nav-option/lightMode.svg");
+}
+
+.actions.sound Button {
+  background-image: url("../../Icons/nav-option/soundOn.svg");
+}
+
+.actions.fullscreen Button {
+  background-image: url("../../Icons/nav-option/fullscreen.svg");
+}
+
+.actions.resign Button {
+  background-image: url("../../Icons/nav-option/resign.svg");
+}
+
+.actions Button {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 25px;
+}

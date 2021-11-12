@@ -1,19 +1,25 @@
+import XScore from "../Svg/x-score";
+import OScore from "../Svg/o-score";
+import EqualScore from "../Svg/equal-score";
+
+import ScoreHolder from "./ScoreHolder";
+
 import styles from "./NavScore.module.css";
 
 function NavScore() {
   return (
     <div className={styles.scores}>
       <div className={styles.score}>
-        <div>O</div>
-        <div>5</div>
+        <OScore />
+        <ScoreHolder>10</ScoreHolder>
       </div>
       <div className={styles.score}>
-        <div>TIE</div>
-        <div>4</div>
+        <EqualScore />
+        <ScoreHolder>6</ScoreHolder>
       </div>
       <div className={styles.score}>
-        <div>X</div>
-        <div>6</div>
+        <XScore />
+        <ScoreHolder>2</ScoreHolder>
       </div>
     </div>
   );

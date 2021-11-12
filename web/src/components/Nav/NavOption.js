@@ -1,15 +1,18 @@
+import useSetting from "../../context/setting-context";
 import Button from "../UI/Button";
 import styles from "./NavOption.module.css";
 
 function NavOption() {
+  const { sound, toggleSound } = useSetting();
+
   return (
     <div className={styles.options}>
       <div className={`${styles.actions} ${styles.uiMode}`}>
-        <Button></Button>
+        <Button onClick={toggleSound} />
         <p>Dark mode</p>
       </div>
       <div className={`${styles.actions} ${styles.sound}`}>
-        <Button></Button>
+        <Button onClick={() => toggleSound((state) => !state)} />
         <p>Sound</p>
       </div>
       <div className={`${styles.actions} ${styles.fullscreen}`}>

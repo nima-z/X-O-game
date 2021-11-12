@@ -4,11 +4,11 @@ import NavScore from "../Nav/NavScore";
 
 import styles from "./MainTable.module.css";
 
-function MainTable(props) {
+function MainTable({ game, extractor }) {
   return (
     <div className={styles.container}>
       <div className="boardAndScore">
-        <Board game={props.game} extractor={props.extractor} />
+        <Board game={game} extractor={extractor} />
         <NavScore />
       </div>
       <div className={styles.options}>

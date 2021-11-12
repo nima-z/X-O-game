@@ -1,10 +1,8 @@
 .cell {
-  background-image: url("../../Icons/board/default-cell.svg");
+  background-image: url("../../assets/board/cell-default.svg");
   background-repeat: no-repeat;
   background-position: center;
   background-color: #e3edf7;
-  text-align: center;
-  align-self: center;
   border-radius: 35px;
   box-shadow: inset -3px -3px 7px #ffffff,
     inset 3px 3px 7px rgba(136, 165, 191, 0.48);
@@ -12,9 +10,24 @@
   height: 100px;
   font-size: 42px;
   cursor: pointer;
+  transition: background-image 0.2s;
 }
 
 .cell:hover {
-  background-image: url("../../Icons/board/hover-cell.svg");
-  transition: background-image 0.2s;
+  background-image: url("../../assets/board/cell-hover.svg");
 }
+
+.holder {
+  width: 100px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* background-color: lawngreen; */
+  margin: auto;
+}
+
+/* .holder img {
+  width: 164px;
+  height: 164px;
+} */

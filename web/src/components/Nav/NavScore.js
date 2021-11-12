@@ -1,6 +1,6 @@
-import XScore from "../Svg/x-score";
-import OScore from "../Svg/o-score";
-import EqualScore from "../Svg/equal-score";
+import XScore from "./Svg/x-score";
+import OScore from "./Svg/o-score";
+import EqualScore from "./Svg/equal-score";
 
 import ScoreHolder from "./ScoreHolder";
 

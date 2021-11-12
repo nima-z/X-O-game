@@ -14,19 +14,19 @@ p {
 }
 
 .actions.uiMode Button {
-  background-image: url("../../Icons/nav-option/lightMode.svg");
+  background-image: url("../../assets/nav-option/lightMode.svg");
 }
 
 .actions.sound Button {
-  background-image: url("../../Icons/nav-option/soundOn.svg");
+  background-image: url("../../assets/nav-option/soundOn.svg");
 }
 
 .actions.fullscreen Button {
-  background-image: url("../../Icons/nav-option/fullscreen.svg");
+  background-image: url("../../assets/nav-option/fullscreen.svg");
 }
 
 .actions.resign Button {
-  background-image: url("../../Icons/nav-option/resign.svg");
+  background-image: url("../../assets/nav-option/resign.svg");
 }
 
 .actions Button {

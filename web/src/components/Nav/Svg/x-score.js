@@ -1,4 +1,4 @@
-import xLogo from "../../Icons/nav-score/player-x.svg";
+import xLogo from "../../../assets/nav-score/player-x.svg";
 
 import styles from "./x-score.module.css";
 

@@ -1,4 +1,4 @@
-import equalLogo from "../../Icons/nav-score/equal-sign.svg";
+import equalLogo from "../../../assets/nav-score/equal-sign.svg";
 
 import styles from "./equal.module.css";
 

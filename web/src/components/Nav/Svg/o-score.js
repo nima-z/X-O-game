@@ -1,4 +1,4 @@
-import oLogo from "../../Icons/nav-score/player-o.svg";
+import oLogo from "../../../assets/nav-score/player-o.svg";
 
 import styles from "./o-score.module.css";
 

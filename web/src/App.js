@@ -7,10 +7,7 @@ import "./App.css";
 
 const ws = new WebSocket("ws://localhost:8080");
 let playerId = null;
-let board = null;
 
-// const requestBody = { type: "join-game", playerId: playerId }
-// ws.send(JSON.stringify(requestBody)
 
 function App() {
   const [isPlay, setIsPlay] = useState(false);

@@ -2,9 +2,13 @@ import React, { Fragment } from "react";
 import xImage from "../../Icons/board/x-image.svg";
 import oImage from "../../Icons/board/o-image.svg";
 import styles from "./Cell.module.css";
+import useSound from "use-sound";
+import beep from "../../sounds/beep.wav"
 
 function Cell(props) {
+  const play = useSound(beep)[0]
   function clickHandler() {
+    play()
     props.transportToUp(props.children);
   }
 

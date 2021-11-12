@@ -1,13 +1,12 @@
 import React, { useState, Fragment } from "react";
 
 import MainTable from "./components/Board/MainTable";
-import Button from "./components/UI/Button";
+import StartingPage from "./components/StartingPage/StartingPage";
 
 import "./App.css";
 
 const ws = new WebSocket("ws://localhost:8080");
 let playerId = null;
-
 
 function App() {
   const [isPlay, setIsPlay] = useState(false);
@@ -27,7 +26,6 @@ function App() {
         isTurn: response.game.players[playerId].isTurn,
       };
 
-      console.log(response.game.players);
       setGame(game);
       if (Object.keys(response.game.players).length === 2) {
         setIsLoading(false);
@@ -63,7 +61,8 @@ function App() {
 
   return (
     <Fragment>
-      {!isPlay && <Button onClick={startGameHandler}>Play</Button>}
+      {!isPlay && <StartingPage startAction={startGameHandler} />}
+      {/* {!isPlay && <Button onClick={startGameHandler}>Play</Button>} */}
       {isLoading && <p className="loadingText">Waiting for the Opponent...</p>}
       {isPlay && <MainTable game={game} extractor={extractor} />}
     </Fragment>

@@ -29,32 +29,25 @@ function Board({ game, extractor }) {
                 if (cell.player) {
                   if (cell.player.action === "x") {
                     image = xImage;
-                    if (isSound) sound = x_sound;
+                    sound = x_sound;
                   } else if (cell.player.action === "o") {
                     image = oImage;
-                    if (isSound) o_sound();
+                    sound = o_sound;
                   }
                 }
 
                 return (
                   <Cell
-                    item={cell}
+                    player={cell.player ? cell.player.playerId : null}
                     key={cell.id}
                     transportToUp={() => contentTransporter(cell)}
                     isTurn={game.isTurn}
                     image={image}
-                    sound={sound}
+                    sound={isSound ? sound : null}
                   />
                 );
               })}
             </tr>
-
-            // <Row
-            //   boardRow={row}
-            //   transportToBoard={contentTransporter}
-            //   key={index}
-            //   isTurn={game.isTurn}
-            // />
           ))}
         </tbody>
       </table>

@@ -1,22 +1,23 @@
-import React, { Fragment } from "react";
-import useSetting from "../../context/setting-context";
+import React, { Fragment, memo } from "react";
 import styles from "./Cell.module.css";
 
-function Cell(props) {
-  if (props.sound) props.sound();
+function Cell({ sound, transportToUp, isTurn, image }) {
+  console.log(sound);
+  if (sound) sound();
 
   return (
     <Fragment>
-      <td
-        className={styles.cell}
-        onClick={props.isTurn ? props.transportToUp : null}
-      >
+      <td className={styles.cell} onClick={isTurn ? transportToUp : null}>
         <div className={styles.holder}>
-          <img src={props.image} />
+          <img src={image} />
         </div>
       </td>
     </Fragment>
   );
 }
 
-export default Cell;
+function propsAreEqual(prev) {
+  return prev.player;
+}
+
+export default memo(Cell, propsAreEqual);

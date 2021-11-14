@@ -1,12 +1,12 @@
 import React, { Fragment, memo } from "react";
 import styles from "./Cell.module.css";
 
-function Cell({ sound, transportToUp, isTurn, image }) {
+function Cell({ player, sound, transportToUp, isTurn, image }) {
   if (sound) sound();
 
   return (
     <Fragment>
-      <td className={styles.cell} onClick={isTurn ? transportToUp : null}>
+      <td className={styles.cell} onClick={isTurn && !player ? transportToUp : null}>
         <div className={styles.holder}>
           <img src={image} />
         </div>
@@ -16,7 +16,7 @@ function Cell({ sound, transportToUp, isTurn, image }) {
 }
 
 function propsAreEqual(prev) {
-  return prev.player;
+  return prev.player ? true : false;
 }
 
 export default memo(Cell, propsAreEqual);

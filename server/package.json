@@ -4,15 +4,18 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "eslint": "^8.2.0",
+    "nodemon": "^2.0.15",
     "prettier": "^2.4.1"
   },
+  "type": "module",
   "dependencies": {
     "uuid": "^8.3.2",
     "websocket": "^1.0.34"

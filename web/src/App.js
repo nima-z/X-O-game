@@ -43,8 +43,8 @@ function App() {
     }
   };
 
-  function startGameHandler() {
-    const requestBody = { type: "join-game", playerId: playerId };
+  function startGameHandler(nickname) {
+    const requestBody = { type: "join-game", playerId, nickname };
     ws.send(JSON.stringify(requestBody));
   }
 

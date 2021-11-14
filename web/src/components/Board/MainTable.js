@@ -9,7 +9,7 @@ function MainTable({ game, extractor }) {
     <div className={styles.container}>
       <div className="boardAndScore">
         <Board game={game} extractor={extractor} />
-        <NavScore />
+        <NavScore players={game.players} />
       </div>
       <div className={styles.options}>
         <NavOption />

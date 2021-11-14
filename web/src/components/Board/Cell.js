@@ -2,7 +2,6 @@ import React, { Fragment, memo } from "react";
 import styles from "./Cell.module.css";
 
 function Cell({ sound, transportToUp, isTurn, image }) {
-  console.log(sound);
   if (sound) sound();
 
   return (

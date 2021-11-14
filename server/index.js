@@ -33,8 +33,9 @@ wsServer.on("request", (request) => {
       // response => {type: "join-game", game}
       // game => {id: str, players: [], board: [][]}
 
-      const playerId = requestBody.playerId;
-      const game = getAvailableGame(playerId);
+      const { playerId, nickname } = requestBody;
+      const player = { playerId, nickname, action: null, isTurn: false };
+      const game = getAvailableGame(player);
       const responseBody = { type: "join-game", game: game };
       broadcastPlayers(game, responseBody);
     }
@@ -62,25 +63,26 @@ wsServer.on("request", (request) => {
 
 server.listen(8080);
 
-function getAvailableGame(playerId) {
+// arg: player object
+function getAvailableGame(player) {
   for (let gameId of Object.keys(games)) {
     const game = games[gameId];
     if (Object.keys(game.players).length < PLAYER_LIMIT) {
       game.players = {
         ...game.players,
-        [playerId]: { playerId, action: "o", isTurn: false },
+        [player.playerId]: { ...player, action: "o", isTurn: false },
       };
       games[gameId] = game;
       return game;
     }
   }
-  const game = newGame(playerId);
+  const game = newGame(player);
   games[game.id] = game;
   return game;
 }
 
-function newGame(playerId) {
-  const p = { playerId, action: "x", isTurn: true };
+function newGame(player) {
+  const p = { ...player, action: "x", isTurn: true };
   return {
     id: uuidv4(),
     players: { [p.playerId]: p },

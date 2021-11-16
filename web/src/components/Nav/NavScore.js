@@ -17,8 +17,8 @@ function NavScore({ players }) {
     <div className={styles.scores}>
       <div className={styles.score}>
         <OScore />
+        <span className={styles.tooltip}>{oNickname}</span>
         <ScoreHolder>10</ScoreHolder>
-        <div className={styles.player}>{oNickname}</div>
       </div>
       <div className={styles.score}>
         <EqualScore />
@@ -26,8 +26,8 @@ function NavScore({ players }) {
       </div>
       <div className={styles.score}>
         <XScore />
+        <span className={styles.tooltip}>{xNickname}</span>
         <ScoreHolder>2</ScoreHolder>
-        <div className={styles.player}>{xNickname}</div>
       </div>
     </div>
   );

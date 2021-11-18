@@ -4,10 +4,10 @@ import MainTable from "./components/Board/MainTable";
 import StartingPage from "./components/StartingPage/StartingPage";
 
 import "./App.css";
-import useGame from "./components/hooks/useServer";
+import useGame from "./components/hooks/useGame";
 
 function App() {
-  const { game, isLoading, isPlay, joinGame, play } = useGame();
+  const { game, isLoading, isPlay, joinGame, play, resign } = useGame();
 
   if (game && game.isFinished) {
     if (game.wonBy) {
@@ -29,7 +29,9 @@ function App() {
     <Fragment>
       {!isPlay && <StartingPage startAction={startGameHandler} />}
       {isLoading && <p className="loadingText">Waiting for the Opponent...</p>}
-      {isPlay && <MainTable game={game} extractor={extractor} />}
+      {isPlay && (
+        <MainTable game={game} extractor={extractor} onResign={resign} />
+      )}
     </Fragment>
   );
 }

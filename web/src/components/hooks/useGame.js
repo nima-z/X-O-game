@@ -24,6 +24,10 @@ export default function useGame() {
     );
   }
 
+  function resign() {
+    ws.send(JSON.stringify({ type: "resign", playerId, gameId: game.id }));
+  }
+
   useEffect(() => {
     if (!ws) ws = new WebSocket("ws://localhost:8080");
 
@@ -58,5 +62,5 @@ export default function useGame() {
     };
   }, []);
 
-  return { game, isLoading, isPlay, joinGame, play };
+  return { game, isLoading, isPlay, joinGame, play, resign };
 }

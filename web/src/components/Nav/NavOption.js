@@ -2,7 +2,7 @@ import useSetting from "../../context/setting-context";
 import Button from "../UI/Button";
 import styles from "./NavOption.module.css";
 
-function NavOption() {
+function NavOption({ onResign }) {
   const { sound, toggleSound } = useSetting();
 
   return (
@@ -20,7 +20,7 @@ function NavOption() {
         <p>Fullscreen</p>
       </div>
       <div className={`${styles.actions} ${styles.resign}`}>
-        <Button id="resign"></Button>
+        <Button id="resign" onClick={onResign}></Button>
         <p>Resign</p>
       </div>
     </div>

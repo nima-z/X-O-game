@@ -29,6 +29,12 @@ export function joinGame({ playerId, nickname }) {
   return game;
 }
 
+export function resignGame({ playerId, gameId }) {
+  let game = games[gameId];
+  const { [playerId]: _, ...winner } = game.players;
+  return { ...game, isFinished: true, wonBy: Object.keys(winner)[0] };
+}
+
 export function playGame({ cellId, gameId, playerId }) {
   let game = games[gameId];
   //update board

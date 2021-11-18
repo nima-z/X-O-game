@@ -2,7 +2,7 @@
 import http from "http";
 import { server as WebSocketServer } from "websocket";
 import { addConnection, broadcast } from "./ConnectionManager.js";
-import { joinGame, playGame } from "./GameManager.js";
+import { joinGame, playGame, resignGame } from "./GameManager.js";
 //server
 const server = http.createServer();
 const wsServer = new WebSocketServer({
@@ -28,6 +28,13 @@ wsServer.on("request", (request) => {
     if (requestBody.type === "play") {
       const { cellId, gameId, playerId } = requestBody;
       const game = playGame({ cellId, gameId, playerId });
+      const responseBody = { type: "update-game", game };
+      broadcast(game.players, responseBody);
+    }
+
+    if (requestBody.type === "resign") {
+      const { playerId, gameId } = requestBody;
+      const game = resignGame({ playerId, gameId });
       const responseBody = { type: "update-game", game };
       broadcast(game.players, responseBody);
     }

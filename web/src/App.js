@@ -1,17 +1,13 @@
-import React, { useState, Fragment } from "react";
+import React, { Fragment } from "react";
 
 import MainTable from "./components/Board/MainTable";
 import StartingPage from "./components/StartingPage/StartingPage";
 
 import "./App.css";
-
-const ws = new WebSocket("ws://localhost:8080");
-let playerId = null;
+import useGame from "./components/hooks/useGame";
 
 function App() {
-  const [isPlay, setIsPlay] = useState(false);
-  const [game, setGame] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const { game, isLoading, isPlay, joinGame, play, resign } = useGame();
 
   if (game && game.isFinished) {
     if (game.wonBy) {
@@ -21,59 +17,21 @@ function App() {
     }
   }
 
-  ws.onmessage = function (message) {
-    const response = JSON.parse(message.data);
-    if (response.type === "join-server") {
-      playerId = response.playerId;
-    }
-
-    if (response.type === "join-game") {
-      setIsLoading(true);
-      const game = {
-        ...response.game,
-        isTurn: response.game.players[playerId].isTurn,
-      };
-
-      setGame(game);
-      if (Object.keys(response.game.players).length === 2) {
-        setIsLoading(false);
-        setIsPlay(true);
-      }
-    }
-
-    if (response.type === "update-game") {
-      const gameObj = {
-        ...response.game,
-        isTurn: response.game.players[playerId].isTurn,
-      };
-
-      setGame((game) => ({ ...game, ...gameObj }));
-    }
-  };
-
   function startGameHandler(nickname) {
-    const requestBody = { type: "join-game", playerId, nickname };
-    ws.send(JSON.stringify(requestBody));
+    joinGame(nickname);
   }
 
   function extractor(cell) {
-    if (game.isFinished) return;
-    ws.send(
-      JSON.stringify({
-        type: "play",
-        playerId: playerId,
-        cellId: cell.id,
-        gameId: game.id,
-      })
-    );
+    play(cell.id);
   }
 
   return (
     <Fragment>
       {!isPlay && <StartingPage startAction={startGameHandler} />}
-      {/* {!isPlay && <Button onClick={startGameHandler}>Play</Button>} */}
       {isLoading && <p className="loadingText">Waiting for the Opponent...</p>}
-      {isPlay && <MainTable game={game} extractor={extractor} />}
+      {isPlay && (
+        <MainTable game={game} extractor={extractor} onResign={resign} />
+      )}
     </Fragment>
   );
 }

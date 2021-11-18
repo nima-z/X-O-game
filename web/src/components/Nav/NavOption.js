@@ -11,8 +11,8 @@ function NavOption({ onResign }) {
     : `${styles.actions} ${styles.lightMode}`;
 
   const soundClasses = sound
-    ? `${styles.actions}  ${styles.soundOff}`
-    : `${styles.actions}  ${styles.soundOn}`;
+    ? `${styles.actions}  ${styles.soundOn}`
+    : `${styles.actions}  ${styles.soundOff}`;
 
   console.log(styles.soundOn);
   return (
@@ -24,7 +24,7 @@ function NavOption({ onResign }) {
 
       <div className={soundClasses}>
         <Button onClick={toggleSound} />
-        {sound ? <p>Sound Off</p> : <p>Sound On</p>}
+        {sound ? <p>Sound On</p> : <p>Sound Off</p>}
       </div>
 
       <div className={`${styles.actions} ${styles.fullscreen}`}>

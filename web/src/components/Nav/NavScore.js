@@ -9,14 +9,22 @@ import styles from "./NavScore.module.css";
 function NavScore({ players }) {
   let oNickname;
   let xNickname;
-  for (let key in players) {
-    if (players[key].action === "o") oNickname = players[key].nickname;
-    else xNickname = players[key].nickname;
+  let o_turn;
+  let x_turn;
+
+  for (let id in players) {
+    if (players[id].action === "o") {
+      oNickname = players[id].nickname;
+      o_turn = players[id].isTurn;
+    } else {
+      xNickname = players[id].nickname;
+      x_turn = players[id].isTurn;
+    }
   }
   return (
     <div className={styles.scores}>
       <div className={styles.score}>
-        <OScore />
+        <OScore isTurn={o_turn} />
         <span className={styles.tooltip}>{oNickname}</span>
         <ScoreHolder>10</ScoreHolder>
       </div>
@@ -25,7 +33,7 @@ function NavScore({ players }) {
         <ScoreHolder>6</ScoreHolder>
       </div>
       <div className={styles.score}>
-        <XScore />
+        <XScore isTurn={x_turn} />
         <span className={styles.tooltip}>{xNickname}</span>
         <ScoreHolder>2</ScoreHolder>
       </div>

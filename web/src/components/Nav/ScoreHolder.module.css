@@ -7,4 +7,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  background: -webkit-linear-gradient(#202e43 100%, rgba(155, 171, 192, 0.972));
+  background-clip: text;
+  -webkit-text-fill-color: rgba(0, 0, 0, 0.342);
 }

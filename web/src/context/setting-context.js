@@ -1,6 +1,12 @@
 import { createContext, useContext, useState } from "react";
 
-const defaultSetting = { sound: true, toggleSound: () => {} };
+const defaultSetting = {
+  sound: true,
+  toggleSound: () => {},
+  darkMode: true,
+  toggleDarkMode: () => {},
+};
+
 const SettingContext = createContext(defaultSetting);
 
 export function SettingProvider({ children }) {
@@ -9,8 +15,20 @@ export function SettingProvider({ children }) {
   function toggleSound() {
     setSetting((state) => ({ ...state, sound: !state.sound }));
   }
+
+  function toggleDarkMode() {
+    setSetting((state) => ({ ...state, darkMode: !state.darkMode }));
+  }
+
   return (
-    <SettingContext.Provider value={{ sound: setting.sound, toggleSound }}>
+    <SettingContext.Provider
+      value={{
+        sound: setting.sound,
+        toggleSound,
+        darkMode: setting.darkMode,
+        toggleDarkMode,
+      }}
+    >
       {children}
     </SettingContext.Provider>
   );

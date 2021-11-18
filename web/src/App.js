@@ -13,6 +13,14 @@ function App() {
   const [game, setGame] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
+  if (game && game.isFinished) {
+    if (game.wonBy) {
+      alert(`${game.wonBy} won the game with these cells: ${game.winnerCells}`);
+    } else {
+      alert("draw");
+    }
+  }
+
   ws.onmessage = function (message) {
     const response = JSON.parse(message.data);
     if (response.type === "join-server") {
@@ -49,6 +57,7 @@ function App() {
   }
 
   function extractor(cell) {
+    if (game.isFinished) return;
     ws.send(
       JSON.stringify({
         type: "play",

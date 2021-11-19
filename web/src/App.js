@@ -2,6 +2,7 @@ import React, { Fragment } from "react";
 
 import MainTable from "./components/Board/MainTable";
 import StartingPage from "./components/StartingPage/StartingPage";
+import InitialBoardData from "./components/Board/InitialBoardData";
 
 import "./App.css";
 import useGame from "./components/hooks/useGame";
@@ -25,13 +26,22 @@ function App() {
     play(cell.id);
   }
 
+  const initialGameData = {
+    players: {},
+    board: InitialBoardData(),
+  };
+
   return (
     <Fragment>
-      {!isPlay && <StartingPage startAction={startGameHandler} />}
-      {isLoading && <p className="loadingText">Waiting for the Opponent...</p>}
-      {isPlay && (
-        <MainTable game={game} extractor={extractor} onResign={resign} />
+      {!isPlay && (
+        <StartingPage startAction={startGameHandler} isLoading={isLoading} />
       )}
+
+      <MainTable
+        game={game ? game : initialGameData}
+        extractor={extractor}
+        onResign={resign}
+      />
     </Fragment>
   );
 }

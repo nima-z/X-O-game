@@ -20,11 +20,11 @@ function StartingPage(props) {
           <div className={styles["input-wrapper"]}>
             <input type="text" id="nickName" ref={ref} autoFocus />
           </div>
-          {props.isLoading && (
-            <p className="loadingText">Waiting for the Opponent...</p>
-          )}
         </form>
       </div>
+      {props.isLoading && (
+        <p className="loadingText">Waiting for the Opponent...</p>
+      )}
     </Modal>
   );
 }

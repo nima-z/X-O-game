@@ -10,6 +10,7 @@
 }
 
 .modal {
+  display: flex;
   position: fixed;
   top: 30vh;
   left: 37%;

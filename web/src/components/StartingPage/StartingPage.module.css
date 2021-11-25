@@ -3,21 +3,63 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 373px;
+  height: 171px;
+  background-color: #ebf3fa;
+  border-radius: 16px;
+  color: #31456a;
 }
 
 .input label {
   text-align: left;
   display: block;
-  margin-bottom: 0.5rem;
+  margin-bottom: 24px;
+  font-family: "Lato", sans-serif;
+  opacity: 60%;
+  margin-left: -40px;
 }
 
 .input input {
-  width: 200px;
-  height: 50px;
+  width: 254px;
+  height: 56px;
   text-align: center;
   font-size: 32px;
+  border-radius: 16px;
+  background-color: #e3edf7;
+  box-shadow: inset -3px -3px 7px #ffffff,
+    inset 2px 2px 5px rgba(136, 165, 191, 0.38);
+  background-image: url("../../assets/icons/Login.svg");
+  background-repeat: no-repeat;
+  background-position: 95%;
+  border: none;
+  padding-right: 42px;
+}
+
+.input input:focus-visible {
+  outline: none;
 }
 
 .action button {
   margin-top: 1rem;
+}
+
+.input-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 208px;
+  height: 58px;
+  background: linear-gradient(
+      130.18deg,
+      rgba(255, 255, 255, 1) 5.92%,
+      rgba(55, 83, 111, 0.4) 190.57%
+    ),
+    linear-gradient(
+      300deg,
+      rgba(255, 255, 255, 1) 35.92%,
+      rgba(55, 83, 111, 0.4) 190.57%
+    );
+  border-radius: 18px;
+  box-shadow: inset -3px -3px 7px #ffffff,
+    inset 2px 2px 5px rgba(136, 165, 191, 0.38);
 }

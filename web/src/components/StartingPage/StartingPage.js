@@ -16,10 +16,9 @@ function StartingPage(props) {
     <Modal>
       <div className={styles.input}>
         <form onSubmit={submitHandler}>
-          <label htmlFor="nickName">Nick Name</label>
-          <input type="text" id="nickName" ref={ref} autoFocus />
-          <div className={styles.action}>
-            <Button type="submit">Play</Button>
+          <label htmlFor="nickName">Enter your name!</label>
+          <div className={styles["input-wrapper"]}>
+            <input type="text" id="nickName" ref={ref} autoFocus />
           </div>
           {props.isLoading && (
             <p className="loadingText">Waiting for the Opponent...</p>

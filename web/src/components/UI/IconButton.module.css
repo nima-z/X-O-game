@@ -1,0 +1,23 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: hidden;
+  cursor: pointer;
+  gap: 10px;
+  background-color: #e3edf7;
+  border-radius: 10px;
+  padding: 10px;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.container:active {
+  box-shadow: inset -3px -3px 7px #ffffff,
+    inset 3px 3px 7px rgba(136, 165, 191, 0.48);
+}
+
+.container svg {
+  width: 24px;
+  height: 24px;
+}

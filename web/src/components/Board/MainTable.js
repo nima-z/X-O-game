@@ -9,7 +9,7 @@ function MainTable({ game, extractor, onResign }) {
     <div className={styles.container}>
       <div className="boardAndScore">
         <Board game={game} extractor={extractor} />
-        <NavScore players={game.players} />
+        <NavScore players={game.players} allGames={game.count} />
       </div>
       <div className={styles.options}>
         <NavOption onResign={onResign} />

@@ -4,6 +4,7 @@ let ws;
 let playerId;
 export default function useGame() {
   const [isPlay, setIsPlay] = useState(false);
+  const [notify, setNotify] = useState(null);
   const [game, setGame] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -26,6 +27,11 @@ export default function useGame() {
 
   function resign() {
     ws.send(JSON.stringify({ type: "resign", playerId, gameId: game.id }));
+  }
+
+  function rematch() {
+    const requestBody = { type: "rematch", playerId, gameId: game.id };
+    ws.send(JSON.stringify(requestBody));
   }
 
   useEffect(() => {
@@ -58,9 +64,31 @@ export default function useGame() {
         };
 
         setGame((game) => ({ ...game, ...gameObj }));
+        setNotify(null);
+      }
+
+      if (response.type === "notify-rematch") {
+        setNotify(`${response.name} is ready for rematch!`);
       }
     };
   }, []);
 
-  return { game, isLoading, isPlay, joinGame, play, resign };
+  const status =
+    game && game.isFinished && !game.wonBy
+      ? "Draw"
+      : game && game.isFinished && game.wonBy === playerId
+      ? "Won"
+      : "Lost";
+
+  return {
+    game,
+    isLoading,
+    isPlay,
+    joinGame,
+    play,
+    resign,
+    rematch,
+    notify,
+    status,
+  };
 }

@@ -13,7 +13,7 @@ function Connection({ id, connection }) {
 }
 
 export function broadcast(players, message) {
-  Object.keys(players).forEach((id) => {
+  players.forEach((id) => {
     const p = connections[id];
     p.connection.send(JSON.stringify(message));
   });

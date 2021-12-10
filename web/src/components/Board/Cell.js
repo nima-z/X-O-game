@@ -29,7 +29,6 @@ function Cell({ player, sound, transportToUp, isTurn, image }) {
         <div className={styles.holder}>
           <Transition in={player} timeout={duration}>
             {(state) => {
-              console.log(state);
               return (
                 <img
                   src={image}
@@ -47,7 +46,8 @@ function Cell({ player, sound, transportToUp, isTurn, image }) {
   );
 }
 
-function propsAreEqual(prev) {
+function propsAreEqual(prev, current) {
+  if (prev.player && !current.player) return false;
   return prev.player ? true : false;
 }
 

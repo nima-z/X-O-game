@@ -1,0 +1,44 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 373px;
+  height: 171px;
+  background-color: #ebf3fa;
+  border-radius: 16px;
+  justify-content: start;
+  align-items: flex-start;
+  color: #31456a;
+  padding: 20px;
+}
+
+.container > label {
+  text-align: left;
+  display: block;
+  margin-bottom: 24px;
+  font-family: "Lato", sans-serif;
+  opacity: 60%;
+  margin-left: 20px;
+  margin-top: 20px;
+  font-size: 24px;
+}
+
+.rematch {
+  display: flex;
+}
+
+.rematch > label {
+  text-align: left;
+  display: block;
+  font-family: "Lato", sans-serif;
+  opacity: 60%;
+  font-size: 24px;
+}
+
+.actions {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}

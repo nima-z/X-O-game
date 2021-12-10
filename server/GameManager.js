@@ -47,7 +47,28 @@ export function playGame({ cellId, gameId, playerId }) {
     game.board,
     game.winConditions
   );
-  if (isFinished) return { ...game, isFinished, wonBy, winnerCells };
+  if (isFinished) {
+    const players = wonBy
+      ? {
+          ...game.players,
+          [wonBy]: {
+            ...game.players[wonBy],
+            wins: game.players[wonBy].wins + 1,
+          },
+        }
+      : game.players;
+
+    game = {
+      ...game,
+      isFinished,
+      wonBy,
+      winnerCells,
+      count: game.count + 1,
+      players,
+    };
+    updateGames(game);
+    return game;
+  }
   game = { ...game, winConditions: wConditions };
   //update turn
   Object.keys(game.players).forEach((pId) => {
@@ -61,7 +82,7 @@ export function playGame({ cellId, gameId, playerId }) {
     };
   });
   //update games state
-  games = { ...games, [game.id]: game };
+  updateGames(game);
   return game;
 }
 
@@ -124,4 +145,51 @@ function isFinish(board, winConditions) {
   if (wConditions.length === 0)
     return { wConditions, isFinished: true, wonBy: null, winnerCells: null };
   return { wConditions, isFinished: false, wonBy: null, winnerCells: null };
+}
+
+export function getGameById(gameId) {
+  return games[gameId];
+}
+
+export function rematch(gameId, playerId) {
+  let game = games[gameId];
+  game = {
+    ...game,
+    players: {
+      ...game.players,
+      [playerId]: { ...game.players[playerId], rematchRequest: true },
+    },
+  };
+
+  const status = Object.keys(game.players).reduce(
+    (current, pId) => game.players[pId].rematchRequest + current,
+    0
+  );
+
+  game = { ...game, status };
+  updateGames(game);
+  return game;
+}
+
+function updateGames(game) {
+  games = { ...games, [game.id]: game };
+}
+
+export function resetGame(gameId) {
+  let game = games[gameId];
+
+  const actionAndTurns = getActions(Object.keys(game.players));
+
+  let players = game.players;
+  for (let id in game.players) {
+    const player = Player({ ...game.players[id] });
+    players = {
+      ...players,
+      [id]: { ...player, ...actionAndTurns[id] },
+    };
+  }
+
+  const newGame = Game({ id: game.id, players, count: game.count });
+  updateGames(newGame);
+  return newGame;
 }

@@ -14,7 +14,6 @@ function NavOption({ onResign }) {
     ? `${styles.actions}  ${styles.soundOn}`
     : `${styles.actions}  ${styles.soundOff}`;
 
-  console.log(styles.soundOn);
   return (
     <div className={styles.options}>
       <div className={uiClasses}>

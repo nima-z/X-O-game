@@ -41,7 +41,12 @@ function App() {
       )}
 
       {game && game.isFinished && (
-        <GameResult onRematch={rematch} status={status} notifyMsg={notify} />
+        <GameResult
+          onNewGame={startGameHandler}
+          onRematch={rematch}
+          status={status}
+          notifyMsg={notify}
+        />
       )}
       <MainTable
         game={game ? game : initialGameData}

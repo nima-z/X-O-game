@@ -8,10 +8,18 @@ export function joinGame({ playerId, nickname }) {
   const player = Player({ playerId, nickname });
 
   let game = getAvailableGame();
-  game = { ...game, players: { ...game.players, [player.playerId]: player } };
+  game = {
+    ...game,
+    players: {
+      ...game.players,
+      [player.playerId]: player,
+    },
+    status: game.status + 1,
+  };
+
   const playerIds = Object.keys(game.players);
 
-  if (playerIds.length === PLAYER_LIMIT) {
+  if (game.status === PLAYER_LIMIT) {
     const actionAndTurns = getActions(playerIds);
 
     for (let id in game.players) {
@@ -25,8 +33,23 @@ export function joinGame({ playerId, nickname }) {
       };
     }
   }
-  games = { ...games, [game.id]: game };
+  leaveGame(playerId);
+
+  updateGames(game);
+
   return game;
+}
+
+function leaveGame(playerId) {
+  for (let gameId in games) {
+    let game = games[gameId];
+    if (playerId in game.players && game.isFinished) {
+      const { [playerId]: _, ...rest } = game.players;
+      game = { ...game, players: rest };
+      updateGames(game);
+      break;
+    }
+  }
 }
 
 export function resignGame({ playerId, gameId }) {
@@ -104,7 +127,7 @@ function getActions(players) {
 function getAvailableGame() {
   for (let gameId of Object.keys(games)) {
     const game = games[gameId];
-    if (Object.keys(game.players).length < PLAYER_LIMIT) {
+    if (Object.keys(game.players).length < PLAYER_LIMIT && !game.isFinished) {
       return game;
     }
   }

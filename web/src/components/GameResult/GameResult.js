@@ -5,7 +5,12 @@ import IconButton from "../UI/IconButton";
 import { ReactComponent as resignImage } from "../../assets/nav-option/resign.svg";
 import { ReactComponent as loginImage } from "../../assets/icons/Login.svg";
 
-export default function GameResult({ onRematch, notifyMsg, status }) {
+export default function GameResult({
+  onRematch,
+  notifyMsg,
+  status,
+  onNewGame,
+}) {
   return (
     <Modal>
       <div className={styles.container}>
@@ -16,8 +21,9 @@ export default function GameResult({ onRematch, notifyMsg, status }) {
           <IconButton image={resignImage} onClick={onRematch}>
             Rematch
           </IconButton>
-          {/* ToDo */}
-          <IconButton image={loginImage}>New Game</IconButton>
+          <IconButton image={loginImage} onClick={() => onNewGame()}>
+            New Game
+          </IconButton>
         </div>
         {notifyMsg && <p>{notifyMsg}</p>}
       </div>

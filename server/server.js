@@ -61,6 +61,8 @@ wsServer.on("request", (request) => {
         (pId) => pId !== playerId
       )[0];
 
+      if (!opponentId) return;
+
       const responseBody = {
         type: "notify-rematch",
         name: game.players[playerId].nickname,

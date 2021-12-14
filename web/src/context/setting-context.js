@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
 const defaultSetting = {
   sound: true,
@@ -19,6 +19,12 @@ export function SettingProvider({ children }) {
   function toggleDarkMode() {
     setSetting((state) => ({ ...state, darkMode: !state.darkMode }));
   }
+
+  const { darkMode } = setting;
+  useEffect(() => {
+    let value = darkMode ? "dark" : "light";
+    document.documentElement.setAttribute("data-theme", value);
+  }, [darkMode]);
 
   return (
     <SettingContext.Provider

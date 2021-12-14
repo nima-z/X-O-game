@@ -1,0 +1,31 @@
+:root {
+  --var1: #fff;
+  --background-color-1: linear-gradient(0deg, #e3edf7, #e3edf7);
+  --background-color-2: linear-gradient(0deg, #e3edf7, #e3edf7);
+  --color-1: #31456a;
+
+  --box-shadow-1: inset -3px -3px 7px #ffffff,
+    inset 2px 2px 5px rgba(136, 165, 191, 0.38);
+}
+
+[data-theme="dark"] {
+  --var1: #000;
+  /* background-colors */
+  --background-color-1: linear-gradient(
+    144.05deg,
+    #32383e -69.07%,
+    #17191c 122.22%
+  );
+
+  --background-color-2: linear-gradient(
+    303.77deg,
+    #2c333a -100%,
+    #1c1e22 50%,
+    #121416 200%
+  );
+  /* colors */
+  --color-1: #ffffff;
+  /* box-shadows */
+  --box-shadow-1: inset -2px -2px 10px rgba(255, 255, 255, 0.05),
+    inset 2px 3px 10px #070709;
+}

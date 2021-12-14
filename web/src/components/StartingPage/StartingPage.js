@@ -18,7 +18,13 @@ function StartingPage(props) {
         <form onSubmit={submitHandler}>
           <label htmlFor="nickName">Enter your name!</label>
           <div className={styles["input-wrapper"]}>
-            <input type="text" id="nickName" ref={ref} autoFocus />
+            <input
+              type="text"
+              id="nickName"
+              ref={ref}
+              autoFocus
+              spellCheck={false}
+            />
           </div>
         </form>
       </div>

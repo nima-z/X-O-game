@@ -5,9 +5,9 @@
   align-items: center;
   width: 373px;
   height: 171px;
-  background-color: #ebf3fa;
+  background-image: var(--background-color-1);
   border-radius: 16px;
-  color: #31456a;
+  color: var(--color-1);
 }
 
 .input label {
@@ -16,21 +16,22 @@
   margin-bottom: 24px;
   font-family: "Lato", sans-serif;
   opacity: 60%;
-  margin-left: -40px;
+  /* margin-left: -40px; */
 }
 
 .input input {
   width: 254px;
   height: 56px;
-  text-align: center;
-  font-size: 32px;
+  text-align: left;
+  font-size: 16px;
+  padding-left: 16px;
   border-radius: 16px;
-  background-color: #e3edf7;
-  box-shadow: inset -3px -3px 7px #ffffff,
-    inset 2px 2px 5px rgba(136, 165, 191, 0.38);
+  background-color: transparent;
+  box-shadow: var(--box-shadow-1);
   background-image: url("../../assets/icons/Login.svg");
   background-repeat: no-repeat;
   background-position: 95%;
+  color: var(--color-1);
   border: none;
   padding-right: 42px;
 }
@@ -47,9 +48,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 208px;
+  width: 100%;
   height: 58px;
-  background: linear-gradient(
+  /* background-color: #e3edf7*/
+  background: var(--background-color-2);
+  /* background: linear-gradient(
       130.18deg,
       rgba(255, 255, 255, 1) 5.92%,
       rgba(55, 83, 111, 0.4) 190.57%
@@ -58,8 +61,8 @@
       300deg,
       rgba(255, 255, 255, 1) 35.92%,
       rgba(55, 83, 111, 0.4) 190.57%
-    );
+    ); */
   border-radius: 18px;
-  box-shadow: inset -3px -3px 7px #ffffff,
-    inset 2px 2px 5px rgba(136, 165, 191, 0.38);
+  /* box-shadow: inset -3px -3px 7px #ffffff,
+    inset 2px 2px 5px rgba(136, 165, 191, 0.38); */
 }

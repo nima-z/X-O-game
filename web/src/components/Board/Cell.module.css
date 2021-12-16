@@ -1,11 +1,14 @@
 .cell {
-  background-image: url("../../assets/board/cell-default.svg");
+  /* visibility: hidden; */
+  background-image: var(--icon-cell-default), var(--background-color-3);
   background-repeat: no-repeat;
   background-position: center;
-  background-color: #e3edf7;
+  /* background-color: #e3edf7; */
   border-radius: 35px;
-  box-shadow: inset -3px -3px 7px #ffffff,
-    inset 3px 3px 7px rgba(136, 165, 191, 0.48);
+  /* mix-blend-mode: overlay; */
+  /* background-blend-mode: overlay; */
+
+  box-shadow: var(--box-shadow-2);
   width: 100px;
   height: 100px;
   font-size: 42px;
@@ -14,7 +17,7 @@
 }
 
 .cell:hover {
-  background-image: url("../../assets/board/cell-hover.svg");
+  background-image: var(--cell-hover);
 }
 
 .holder {

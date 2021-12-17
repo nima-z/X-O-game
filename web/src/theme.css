@@ -28,8 +28,18 @@
       rgba(142, 148, 142, 0) 60%
     );
 
+  --background-color-7: linear-gradient(0deg, #e3edf7, #e3edf7);
+  --background-color-8: linear-gradient(
+    #202e43 100%,
+    rgba(155, 171, 192, 0.972)
+  );
+
+  --text-fill-color-1: rgba(0, 0, 0, 0.342);
+
   /* colors */
   --color-1: #31456a;
+  --color-2: #ffffff;
+  --color-3: #31456a;
 
   --box-shadow-1: inset -3px -3px 7px #ffffff,
     inset 2px 2px 5px rgba(136, 165, 191, 0.38);
@@ -38,10 +48,25 @@
   --box-shadow-3: -16px -16px 40px rgba(255, 255, 255, 0.8),
     16px 4px 64px rgba(18, 61, 101, 0.3),
     inset -8px -6px 80px rgba(255, 255, 255, 0.18);
+  --box-shadow-4: -4px -2px 16px #ffffff, 4px 2px 16px rgba(136, 165, 191, 0.48);
+  --box-shadow-5: inset -3px -3px 7px #ffffff,
+    inset 3px 3px 7px rgba(136, 165, 191, 0.48);
+  --box-shadow-6: -5px -5px 15px rgba(255, 255, 255, 0.952),
+    2px 4px 5px rgba(75, 85, 93, 0.472);
+  --box-shadow-7: -5px -5px 20px rgba(255, 255, 255, 0.513),
+    4px 4px 15px rgba(106, 115, 122, 0.486);
 
   /* icons-light */
   --icon-login: url("../src/assets/icons/Login.svg");
   --icon-cell-default: url("../src/assets/board/cell-default.svg");
+  --icon-sound-on: url("../src/assets/nav-option/soundOn.svg");
+  --icon-sound-off: url("../src/assets/nav-option/soundOff.svg");
+  --icon-full-screen: url("../src/assets/nav-option/fullscreen.svg");
+  --icon-resign: url("../src/assets/nav-option/resign.svg");
+
+  --text-shadow-1: -1px -1px 2px #ffffff, 1px 1px 2px rgba(20, 44, 73, 0.38);
+  --score-border: 1px solid rgb(172, 171, 171);
+  --backdrop-color: rgba(0, 0, 0, 0.596);
 }
 
 [data-theme="dark"] {
@@ -76,6 +101,7 @@
     #121416 87.57%
   );
 
+  /* background: linear-gradient(144.05deg, #32383E -69.07%, #17191C 122.22%); */
   --background-color-5: linear-gradient(
     169.29deg,
     #262b2f -0.68%,
@@ -89,8 +115,23 @@
     rgba(0, 0, 0, 0.4) 100%
   );
 
+  --background-color-7: linear-gradient(
+    144.05deg,
+    #32383e -69.07%,
+    #17191c 122.22%
+  );
+
+  --background-color-8: linear-gradient(
+    133.71deg,
+    #32383e -30.53%,
+    #17191c 126.55%
+  );
+  --text-fill-color-1: rgba(255, 255, 255, 0.342);
+
   /* colors */
   --color-1: #ffffff;
+  --color-2: #0b2033cc;
+  --color-3: #8d959f;
 
   /* box-shadows */
   --box-shadow-1: inset -2px -2px 10px rgba(255, 255, 255, 0.05),
@@ -100,8 +141,24 @@
   --box-shadow-3: 36px 12px 64px rgba(2, 3, 3, 0.7),
     -12px -20px 56px rgba(232, 237, 243, 0.05),
     inset -16px -6px 80px rgba(248, 249, 249, 0.03);
+  --box-shadow-4: -4px -2px 16px rgba(195, 200, 205, 0.09),
+    4px 4px 18px rgba(0, 0, 0, 0.5);
+  --box-shadow-5: inset -2px -2px 10px rgba(255, 255, 255, 0.05),
+    inset 2px 3px 10px #070709;
+  --box-shadow-6: -4px -2px 16px rgba(195, 200, 205, 0.09),
+    4px 4px 18px rgba(0, 0, 0, 0.5);
+  --box-shadow-7: -4px 0px 8px rgba(195, 200, 205, 0.05),
+    4px 2px 18px rgba(0, 0, 0, 0.6);
 
   /* icons-light */
   --icon-login: url("../src/assets/icons/login-dark.svg");
   --icon-cell-default: url("../src/assets/board/cell-default-dark.svg");
+  --icon-sound-on: url("../src/assets/nav-option/sound-on-dark.svg");
+  --icon-sound-off: url("../src/assets/nav-option/soundOff-dark.svg");
+  --icon-full-screen: url("../src/assets/nav-option/fullscreen-dark.svg");
+  --icon-resign: url("../src/assets/nav-option/resign-dark.svg");
+
+  --text-shadow-1: -1px -1px 2px rgba(255, 255, 255, 0.1), 1px 1px 3px #1e2226;
+  --score-border: 0.5px solid rgba(0, 0, 0, 0.6);
+  --backdrop-color: rgba(0, 0, 0, 0.296);
 }

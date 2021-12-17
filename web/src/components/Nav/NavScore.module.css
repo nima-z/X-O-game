@@ -1,15 +1,17 @@
 .scores {
   font-family: "Share Tech Mono", monospace;
-  text-shadow: -1px -1px 2px #ffffff, 1px 1px 2px rgba(20, 44, 73, 0.38);
-
+  text-shadow: var(--text-shadow-1);
+  /* dark: text-shadow: -1px -1px 2px rgba(255, 255, 255, 0.1), 1px 1px 3px #1E2226; */
   display: flex;
   justify-content: space-between;
-  background-color: #e3edf7;
+  /* align-items: center; */
+  /* background-color: #e3edf7; */
+  background-image: var(--background-color-7);
   margin-top: 1rem;
-  padding: 0.8rem 1.5rem;
+  padding: 16px 32px;
   border-radius: 15px;
-  box-shadow: -5px -5px 15px rgba(255, 255, 255, 0.952),
-    2px 4px 5px rgba(75, 85, 93, 0.472);
+  box-shadow: var(--box-shadow-6);
+  /* box-shadow: -4px -2px 16px #ffffff, 4px 2px 12px rgba(136, 165, 191, 0.54); */
   position: relative;
 }
 
@@ -18,8 +20,10 @@
   height: 38px;
   display: flex;
   justify-content: space-around;
-  border-right: 1px solid rgb(172, 171, 171);
+  /* border: 0.5px solid ; */
+  border-right: var(--score-border);
   padding-right: 20px;
+  align-items: center;
 }
 
 .score:last-child {

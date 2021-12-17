@@ -2,7 +2,7 @@
   height: 100%;
   max-height: 10rem;
   font-family: "Lato", sans-serif;
-  color: #31456a;
+  color: var(--color-3);
 }
 
 .options Button {
@@ -32,17 +32,17 @@ p {
 }
 
 .soundOn Button {
-  background-image: url("../../assets/nav-option/soundOn.svg");
+  background-image: var(--icon-sound-on);
 }
 
 .soundOff Button {
-  background-image: url("../../assets/nav-option/soundOff.svg");
+  background-image: var(--icon-sound-off);
 }
 
 .actions.fullscreen Button {
-  background-image: url("../../assets/nav-option/fullscreen.svg");
+  background-image: var(--icon-full-screen);
 }
 
 .actions.resign Button {
-  background-image: url("../../assets/nav-option/resign.svg");
+  background-image: var(--icon-resign);
 }

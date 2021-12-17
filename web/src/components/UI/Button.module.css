@@ -1,17 +1,21 @@
 .button {
   width: 65px;
   height: 65px;
-  background-color: #e3edf7;
+  background: var(--background-color-1);
+  /* background-color: #e3edf7; */
   padding: 0.9rem 1rem;
   border-radius: 20px;
   border: none;
-  box-shadow: -4px -2px 16px #ffffff, 4px 2px 16px rgba(136, 165, 191, 0.48);
+  box-shadow: var(--box-shadow-4);
   cursor: pointer;
 }
 
 .button:active {
-  box-shadow: inset -3px -3px 7px #ffffff,
-    inset 3px 3px 7px rgba(136, 165, 191, 0.48);
-  border: 1px solid rgb(255, 255, 255);
+  box-shadow: var(--box-shadow-5);
+  /* box-shadow: inset -2px -2px 10px rgba(255, 255, 255, 0.05), inset 2px 3px 10px #070709; */
+  outline: 1px solid var(--color-2);
+  outline-offset: 2px;
   background-size: 23px;
+
+  /* box-shadow: inset -3px -3px 7px #FFFFFF, inset 3px 3px 7px rgba(136, 165, 191, 0.48); */
 }

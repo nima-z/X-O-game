@@ -30,16 +30,16 @@ function NavScore({ players, allGames }) {
       <div className={styles.score}>
         <OScore isTurn={o_turn} />
         <span className={styles.tooltip}>{oNickname}</span>
-        <ScoreHolder>{oWins}</ScoreHolder>
+        <ScoreHolder>{oWins || 0}</ScoreHolder>
       </div>
       <div className={styles.score}>
         <EqualScore />
-        <ScoreHolder>{allGames - oWins - xWins}</ScoreHolder>
+        <ScoreHolder>{allGames - oWins - xWins || 0}</ScoreHolder>
       </div>
       <div className={styles.score}>
         <XScore isTurn={x_turn} />
         <span className={styles.tooltip}>{xNickname}</span>
-        <ScoreHolder>{xWins}</ScoreHolder>
+        <ScoreHolder>{xWins || 0}</ScoreHolder>
       </div>
     </div>
   );

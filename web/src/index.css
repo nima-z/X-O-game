@@ -1,6 +1,7 @@
 html {
   margin: 0;
   background-image: var(--background-color-5);
+  height: 100vh;
 }
 
 body {

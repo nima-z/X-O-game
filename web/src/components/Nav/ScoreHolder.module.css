@@ -1,13 +1,15 @@
 .holder {
   width: 38px;
-  background-color: #e3edf7;
-  box-shadow: -5px -5px 20px rgba(255, 255, 255, 0.513),
-    4px 4px 15px rgba(106, 115, 122, 0.486);
+  height: 38px;
+  box-shadow: var(--box-shadow-7);
   border-radius: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: -webkit-linear-gradient(#202e43 100%, rgba(155, 171, 192, 0.972));
+  background: var(--background-color-8);
+
+  letter-spacing: -0.15em;
+  font-size: 24px;
   background-clip: text;
-  -webkit-text-fill-color: rgba(0, 0, 0, 0.342);
+  -webkit-text-fill-color: var(--text-fill-color-1);
 }

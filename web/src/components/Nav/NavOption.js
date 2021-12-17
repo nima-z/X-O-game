@@ -1,4 +1,3 @@
-import { useState } from "react";
 import useSetting from "../../context/setting-context";
 import Button from "../UI/Button";
 import styles from "./NavOption.module.css";

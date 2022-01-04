@@ -28,9 +28,7 @@ function StartingPage(props) {
           </div>
         </form>
       </div>
-      {props.isLoading && (
-        <p className="loadingText">Waiting for the Opponent...</p>
-      )}
+      {props.notify && <p className="loadingText">{props.notify}</p>}
     </Modal>
   );
 }

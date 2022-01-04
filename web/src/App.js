@@ -11,14 +11,14 @@ import useGame from "./components/hooks/useGame";
 function App() {
   const {
     game,
-    isLoading,
+    isFinished,
     isPlay,
     joinGame,
     play,
     resign,
     rematch,
     notify,
-    status,
+    gameResult,
   } = useGame();
 
   function startGameHandler(nickname) {
@@ -37,14 +37,14 @@ function App() {
   return (
     <Fragment>
       {!isPlay && (
-        <StartingPage startAction={startGameHandler} isLoading={isLoading} />
+        <StartingPage startAction={startGameHandler} notify={notify} />
       )}
 
-      {game && game.isFinished && (
+      {isFinished && (
         <GameResult
           onNewGame={startGameHandler}
           onRematch={rematch}
-          status={status}
+          header={gameResult}
           notifyMsg={notify}
         />
       )}

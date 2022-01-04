@@ -6,12 +6,14 @@ export default function useGame() {
   const [isPlay, setIsPlay] = useState(false);
   const [notify, setNotify] = useState(null);
   const [game, setGame] = useState(null);
+  const [isFinished, setFinished] = useState(false);
+  const [gameResult, setGameResult] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const player = useRef({ id: null, nickname: "" });
 
   function joinGame(nickname) {
     if (!player.current.nickname) player.current.nickname = nickname;
-
+    setIsLoading(true);
     const requestBody = {
       type: "join-game",
       playerId: player.current.id,
@@ -21,7 +23,7 @@ export default function useGame() {
   }
 
   function play(cellId) {
-    if (game.isFinished) return;
+    if (isFinished) return;
     ws.send(
       JSON.stringify({
         type: "play",
@@ -33,6 +35,7 @@ export default function useGame() {
   }
 
   function resign() {
+    if (!game) return;
     ws.send(
       JSON.stringify({
         type: "resign",
@@ -43,6 +46,7 @@ export default function useGame() {
   }
 
   function rematch() {
+    if (!game) return;
     const requestBody = {
       type: "rematch",
       playerId: player.current.id,
@@ -52,7 +56,7 @@ export default function useGame() {
   }
 
   useEffect(() => {
-    if (!ws) ws = new WebSocket("ws://localhost:8080");
+    if (!ws) ws = new WebSocket("ws://192.168.1.8:8080");
 
     ws.onmessage = function (message) {
       const response = JSON.parse(message.data);
@@ -61,51 +65,76 @@ export default function useGame() {
       }
 
       if (response.type === "join-game") {
-        setIsLoading(true);
-        const game = {
-          ...response.game,
-          isTurn: response.game.players[player.current.id].isTurn,
-        };
-
-        setGame(game);
-        if (Object.keys(response.game.players).length === 2) {
-          setIsLoading(false);
-          setIsPlay(true);
-        }
+        console.log(response);
+        const { isGameStarted } = response;
+        if (!isGameStarted) {
+          setGame(null);
+          setNotify("Waiting for opponent...");
+        } else setIsPlay(true);
       }
 
       if (response.type === "update-game") {
+        setFinished(false);
+
         const gameObj = {
           ...response.game,
           isTurn: response.game.players[player.current.id].isTurn,
         };
 
         setGame((game) => ({ ...game, ...gameObj }));
-        setNotify(null);
       }
 
-      if (response.type === "notify-rematch") {
-        setNotify(`${response.name} is ready for rematch!`);
+      if (response.type === "end-game") {
+        console.log(response);
+        const { wonBy } = response;
+
+        setFinished(true);
+        setNotify(null);
+        const result = !wonBy
+          ? "Draw!"
+          : wonBy.playerId === player.current.id
+          ? "You Won!"
+          : "You Lost!";
+        setGameResult(result);
+      }
+
+      if (response.type === "notify") {
+        console.log({ response });
+        setNotify(response.message);
       }
     };
   }, []);
 
-  const status =
-    game && game.isFinished && !game.wonBy
-      ? "Draw"
-      : game && game.isFinished && game.wonBy === player.current.id
-      ? "Won"
-      : "Lost";
+  function handleTabClosing() {
+    if (!ws) return;
+    const requestBody = {
+      type: "leave",
+      playerId: player.current.id,
+      nickname: player.current.nickname,
+      gameId: game.id,
+    };
+    ws.send(JSON.stringify(requestBody));
+    ws.close();
+  }
+
+  useEffect(() => {
+    window.addEventListener("unload", handleTabClosing);
+    window.addEventListener("beforeunload", handleTabClosing);
+    return () => {
+      window.removeEventListener("unload", handleTabClosing);
+      window.removeEventListener("beforeunload", handleTabClosing);
+    };
+  });
 
   return {
     game,
-    isLoading,
     isPlay,
     joinGame,
     play,
     resign,
     rematch,
     notify,
-    status,
+    gameResult,
+    isFinished,
   };
 }

@@ -8,15 +8,13 @@ import { ReactComponent as loginImage } from "../../assets/icons/Login.svg";
 export default function GameResult({
   onRematch,
   notifyMsg,
-  status,
+  header,
   onNewGame,
 }) {
   return (
     <Modal>
       <div className={styles.container}>
-        <label>
-          {status !== "Draw" ? "You" : ""} {`${status}!`}
-        </label>
+        <label>{header}</label>
         <div className={styles.actions}>
           <IconButton image={resignImage} onClick={onRematch}>
             Rematch

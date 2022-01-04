@@ -3,7 +3,10 @@ import http from "http";
 import { server as WebSocketServer } from "websocket";
 import { addConnection, broadcast } from "./ConnectionManager.js";
 import {
+  isGameFinished,
   joinGame,
+  leaveGame,
+  playerLeave,
   playGame,
   rematch,
   resetGame,
@@ -26,23 +29,66 @@ wsServer.on("request", (request) => {
 
     if (requestBody.type === "join-game") {
       const { playerId, nickname } = requestBody;
+      const prevGame = leaveGame(playerId);
+      if (prevGame) {
+        const opponent = Object.keys(prevGame.players)[0];
+        if (opponent) {
+          const responseBody = {
+            type: "notify",
+            message: `${prevGame.players[opponent].nickname} left the game!`,
+          };
+          broadcast([opponent], responseBody);
+        }
+      }
       const game = joinGame({ playerId, nickname });
-      const responseBody = { type: "join-game", game: game };
+      const responseBody = {
+        type: "join-game",
+        isGameStarted: game.status === 2,
+      };
       broadcast(Object.keys(game.players), responseBody);
+
+      if (game.status !== 2) return;
+
+      const updateBody = { type: "update-game", game };
+      broadcast(Object.keys(game.players), updateBody);
     }
 
     if (requestBody.type === "play") {
       const { cellId, gameId, playerId } = requestBody;
-      const game = playGame({ cellId, gameId, playerId });
+      let game = playGame({ cellId, gameId, playerId });
       const responseBody = { type: "update-game", game };
       broadcast(Object.keys(game.players), responseBody);
+
+      game = isGameFinished(game.id);
+      if (!game.isFinished) return;
+      const { wonBy, winnerCells } = game;
+      const body = {
+        type: "end-game",
+        wonBy,
+        winnerCells,
+        endBy: "normal",
+      };
+      broadcast(Object.keys(game.players), body);
     }
 
     if (requestBody.type === "resign") {
       const { playerId, gameId } = requestBody;
       const game = resignGame({ playerId, gameId });
-      const responseBody = { type: "update-game", game };
+      const { wonBy, winnerCells } = game;
+      const responseBody = {
+        type: "end-game",
+        wonBy: wonBy,
+        winnerCells,
+      };
       broadcast(Object.keys(game.players), responseBody);
+
+      const { [playerId]: _, ...rest } = game.players;
+      const opponent = Object.keys(rest)[0];
+      const notification = {
+        type: "notify",
+        message: `${_.nickname} resigned!`,
+      };
+      broadcast([opponent], notification);
     }
 
     if (requestBody.type === "rematch") {
@@ -64,11 +110,34 @@ wsServer.on("request", (request) => {
       if (!opponentId) return;
 
       const responseBody = {
-        type: "notify-rematch",
-        name: game.players[playerId].nickname,
+        type: "notify",
+        message: `${game.players[playerId].nickname} is ready for rematch!`,
       };
       broadcast([opponentId], responseBody);
     }
+
+    if (requestBody.type === "leave") {
+      const { gameId, playerId, nickname } = requestBody;
+      const game = playerLeave(playerId, gameId);
+      const { wonBy, winnerCells } = game;
+      const responseBody = {
+        type: "end-game",
+        wonBy,
+        winnerCells,
+      };
+      broadcast(Object.keys(game.players), responseBody);
+
+      const notif = {
+        type: "notify",
+        message: `${nickname} left the game!`,
+      };
+
+      broadcast(Object.keys(game.players), notif);
+    }
+  });
+
+  connection.on("close", (code, message) => {
+    console.log({ code, message });
   });
 });
 

@@ -5,11 +5,11 @@
   align-items: center;
   width: 373px;
   height: 171px;
-  background-color: #ebf3fa;
+  background-image: var(--background-color-1);
   border-radius: 16px;
   justify-content: start;
   align-items: flex-start;
-  color: #31456a;
+  color: var(--color-1);
   padding: 20px;
 }
 

@@ -17,7 +17,7 @@ const transitionStyles = {
   exited: { opacity: 0 },
 };
 
-function Cell({ player, sound, transportToUp, isTurn, image }) {
+function Cell({ player, sound, transportToUp, isTurn, imgClass }) {
   if (sound) sound();
 
   return (
@@ -31,7 +31,7 @@ function Cell({ player, sound, transportToUp, isTurn, image }) {
             {(state) => {
               return (
                 <img
-                  src={image}
+                  className={styles[imgClass]}
                   style={{
                     ...defaultStyle,
                     ...transitionStyles[state],

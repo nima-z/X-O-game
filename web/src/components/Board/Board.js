@@ -4,8 +4,6 @@ import styles from "./Board.module.css";
 import useSound from "use-sound";
 import xSound from "../../assets/sounds/x-sound.wav";
 import oSound from "../../assets/sounds/o-sound.wav";
-import xImage from "../../assets/board/x-image.svg";
-import oImage from "../../assets/board/o-image.svg";
 import useSetting from "../../context/setting-context";
 
 function Board({ game, extractor }) {
@@ -28,10 +26,10 @@ function Board({ game, extractor }) {
                 let sound;
                 if (cell.player) {
                   if (cell.player.action === "x") {
-                    image = xImage;
+                    image = "xImage";
                     sound = x_sound;
                   } else if (cell.player.action === "o") {
-                    image = oImage;
+                    image = "oImage";
                     sound = o_sound;
                   }
                 }
@@ -42,7 +40,7 @@ function Board({ game, extractor }) {
                     key={cell.id}
                     transportToUp={() => contentTransporter(cell)}
                     isTurn={game.isTurn}
-                    image={image}
+                    imgClass={image}
                     sound={isSound ? sound : null}
                   />
                 );

@@ -63,6 +63,8 @@
   --icon-sound-off: url("../src/assets/nav-option/soundOff.svg");
   --icon-full-screen: url("../src/assets/nav-option/fullscreen.svg");
   --icon-resign: url("../src/assets/nav-option/resign.svg");
+  --icon-xCell: url("../src/assets/board/x-image.svg");
+  --icon-oCell: url("../src/assets/board/o-image.svg");
 
   --text-shadow-1: -1px -1px 2px #ffffff, 1px 1px 2px rgba(20, 44, 73, 0.38);
   --score-border: 1px solid rgb(172, 171, 171);
@@ -150,13 +152,15 @@
   --box-shadow-7: -4px 0px 8px rgba(195, 200, 205, 0.05),
     4px 2px 18px rgba(0, 0, 0, 0.6);
 
-  /* icons-light */
+  /* icons-dark */
   --icon-login: url("../src/assets/icons/login-dark.svg");
   --icon-cell-default: url("../src/assets/board/cell-default-dark.svg");
   --icon-sound-on: url("../src/assets/nav-option/sound-on-dark.svg");
   --icon-sound-off: url("../src/assets/nav-option/soundOff-dark.svg");
   --icon-full-screen: url("../src/assets/nav-option/fullscreen-dark.svg");
   --icon-resign: url("../src/assets/nav-option/resign-dark.svg");
+  --icon-xCell: url("../src/assets/board/x-image-dark.svg");
+  --icon-oCell: url("../src/assets/board/o-image-dark.svg");
 
   --text-shadow-1: -1px -1px 2px rgba(255, 255, 255, 0.1), 1px 1px 3px #1e2226;
   --score-border: 0.5px solid rgba(0, 0, 0, 0.6);

@@ -5,16 +5,17 @@
   border: hidden;
   cursor: pointer;
   gap: 10px;
-  background-color: #e3edf7;
+  background-image: var(--background-color-1);
   border-radius: 10px;
   padding: 10px;
   font-size: 16px;
+  color: var(--color-1);
+  box-shadow: (--box-shadow-4);
   font-weight: 400;
 }
 
 .container:active {
-  box-shadow: inset -3px -3px 7px #ffffff,
-    inset 3px 3px 7px rgba(136, 165, 191, 0.48);
+  box-shadow: var(--box-shadow-5);
 }
 
 .container svg {

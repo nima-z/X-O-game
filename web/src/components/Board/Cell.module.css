@@ -1,12 +1,8 @@
 .cell {
-  /* visibility: hidden; */
   background-image: var(--icon-cell-default), var(--background-color-3);
   background-repeat: no-repeat;
   background-position: center;
-  /* background-color: #e3edf7; */
   border-radius: 35px;
-  /* mix-blend-mode: overlay; */
-  /* background-blend-mode: overlay; */
 
   box-shadow: var(--box-shadow-2);
   width: 100px;
@@ -27,4 +23,12 @@
   justify-content: center;
   align-items: center;
   margin: auto;
+}
+
+.oImage {
+  content: var(--icon-oCell);
+}
+
+.xImage {
+  content: var(--icon-xCell);
 }

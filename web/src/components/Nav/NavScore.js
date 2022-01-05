@@ -14,17 +14,18 @@ function NavScore({ players, allGames }) {
   let oWins;
   let xWins;
 
-  for (let id in players) {
-    if (players[id].action === "o") {
-      oNickname = players[id].nickname;
-      o_turn = players[id].isTurn;
-      oWins = players[id].wins;
+  players.forEach((p) => {
+    if (p.action === "o") {
+      oNickname = p.nickname;
+      o_turn = p.isTurn;
+      oWins = p.wins;
     } else {
-      xNickname = players[id].nickname;
-      x_turn = players[id].isTurn;
-      xWins = players[id].wins;
+      xNickname = p.nickname;
+      x_turn = p.isTurn;
+      xWins = p.wins;
     }
-  }
+  });
+
   return (
     <div className={styles.scores}>
       <div className={styles.score}>

@@ -4,36 +4,37 @@ import Player from "./models/Player.js";
 
 let games = {};
 
-export function joinGame({ playerId, nickname }) {
-  const player = Player({ playerId, nickname });
+export function prepareGame(gameId) {
+  let game = getGameById(gameId);
+
+  const actionAndTurns = getActions(game.playerIds);
+  for (let id in game.players) {
+    const players = {
+      ...game.players,
+      [id]: Player({
+        ...game.players[id],
+        ...actionAndTurns[id],
+        rematchRequest: false,
+      }),
+    };
+    game = Game({
+      ...game,
+      players,
+      board: false,
+      isFinished: false,
+      winConditions: false,
+      winnerCells: false,
+    });
+  }
+  updateGames(game);
+  return game;
+}
+export function joinGame(playerId, nickname) {
+  const player = Player({ id: playerId, nickname });
 
   let game = getAvailableGame();
-
-  game = {
-    ...game,
-    players: {
-      ...game.players,
-      [player.playerId]: player,
-    },
-    status: game.status + 1,
-  };
-
-  const playerIds = Object.keys(game.players);
-
-  if (game.status === PLAYER_LIMIT) {
-    const actionAndTurns = getActions(playerIds);
-
-    for (let id in game.players) {
-      const player = game.players[id];
-      game = {
-        ...game,
-        players: {
-          ...game.players,
-          [id]: { ...player, ...actionAndTurns[id] },
-        },
-      };
-    }
-  }
+  const players = { ...game.players, [player.id]: player };
+  game = Game({ ...game, players });
 
   updateGames(game);
   return game;
@@ -41,10 +42,10 @@ export function joinGame({ playerId, nickname }) {
 
 export function leaveGame(playerId) {
   for (let gameId in games) {
-    let game = games[gameId];
+    let game = getGameById(gameId);
     if (playerId in game.players) {
       const { [playerId]: _, ...rest } = game.players;
-      game = { ...game, players: rest, status: game.status - 1 };
+      game = Game({ ...game, players: rest });
       updateGames(game);
       return game;
     }
@@ -52,39 +53,52 @@ export function leaveGame(playerId) {
 }
 
 function endGame(gameId, winnerId, winnerCells) {
-  const game = getGameById(gameId);
+  let game = getGameById(gameId);
   const players = game.players;
   const winner = players[winnerId];
   const updatedPlayers = winner
     ? {
         ...players,
-        [winnerId]: { ...winner, wins: players[winnerId].wins + 1 },
+        [winnerId]: Player({ ...winner, wins: winner.wins + 1 }),
       }
     : players;
 
-  return {
+  const wonBy = winnerId ? { id: winner.id, nickname: winner.nickname } : null;
+
+  game = Game({
     ...game,
     isFinished: true,
     count: game.count + 1,
-    wonBy: winnerId
-      ? { playerId: winner.playerId, nickname: winner.nickname }
-      : null,
+    wonBy,
     players: updatedPlayers,
-    winnerCells: winnerCells,
-  };
+    winnerCells,
+  });
+  return game;
 }
 
-export function resignGame({ playerId, gameId }) {
-  let game = games[gameId];
-  const { [playerId]: _, ...winner } = game.players;
-  game = endGame(game.id, Object.keys(winner)[0]);
+export function resignGame(playerId, gameId) {
+  let game = getGameById(gameId);
+  game = endGame(
+    game.id,
+    game.playerIds.filter((id) => id !== playerId)
+  );
   updateGames(game);
   return game;
 }
 
-// update board
-// update turn
-export function playGame({ cellId, gameId, playerId }) {
+function updateTurn(players) {
+  let updatedPlayers = {};
+  Object.keys(players).forEach((pId) => {
+    const p = players[pId];
+    updatedPlayers = {
+      ...updatedPlayers,
+      [pId]: Player({ ...p, isTurn: !p.isTurn }),
+    };
+  });
+  return updatedPlayers;
+}
+
+export function playGame(cellId, gameId, playerId) {
   let game = games[gameId];
   //update board
   const i = Math.floor(cellId / BOARD_WIDTH);
@@ -92,18 +106,8 @@ export function playGame({ cellId, gameId, playerId }) {
   const { action } = game.players[playerId];
   game.board[i][j].player = { playerId, action };
 
-  //update turn
-  Object.keys(game.players).forEach((pId) => {
-    const player = game.players[pId];
-    game = {
-      ...game,
-      players: {
-        ...game.players,
-        [pId]: { ...player, isTurn: !player.isTurn },
-      },
-    };
-  });
-  //update games state
+  const players = updateTurn(game.players);
+  game = Game({ ...game, players });
   updateGames(game);
   return game;
 }
@@ -128,7 +132,7 @@ export function isGameFinished(gameId) {
       cell1.playerId === cell2.playerId &&
       cell2.playerId === cell3.playerId
     ) {
-      game = endGame(game.id, cell1.playerId);
+      game = endGame(game.id, cell1.playerId, [c1, c2, c3]);
       break;
     }
 
@@ -147,7 +151,7 @@ export function isGameFinished(gameId) {
   }
 
   if (!game.isFinished) {
-    game = { ...game, winConditions: wConditions };
+    game = Game({ ...game, winConditions: wConditions });
   }
 
   updateGames(game);
@@ -170,9 +174,9 @@ function getActions(players) {
 }
 
 function getAvailableGame() {
-  for (let gameId of Object.keys(games)) {
+  for (let gameId in games) {
     const game = games[gameId];
-    if (Object.keys(game.players).length < PLAYER_LIMIT && !game.isFinished) {
+    if (!game.isGameStarted && !game.isFinished) {
       return game;
     }
   }
@@ -184,21 +188,10 @@ export function getGameById(gameId) {
 }
 
 export function rematch(gameId, playerId) {
-  let game = games[gameId];
-  game = {
-    ...game,
-    players: {
-      ...game.players,
-      [playerId]: { ...game.players[playerId], rematchRequest: true },
-    },
-  };
-
-  const status = Object.keys(game.players).reduce(
-    (current, pId) => game.players[pId].rematchRequest + current,
-    0
-  );
-
-  game = { ...game, status };
+  let game = getGameById(gameId);
+  const player = Player({ ...game.players[playerId], rematchRequest: true });
+  const players = { ...game.players, [playerId]: player };
+  game = Game({ ...game, players });
   updateGames(game);
   return game;
 }
@@ -208,29 +201,17 @@ function updateGames(game) {
 }
 
 export function resetGame(gameId) {
-  let game = games[gameId];
-
-  const actionAndTurns = getActions(Object.keys(game.players));
-
-  let players = game.players;
-  for (let id in game.players) {
-    const player = Player({ ...game.players[id] });
-    players = {
-      ...players,
-      [id]: { ...player, ...actionAndTurns[id] },
-    };
-  }
-
-  const newGame = Game({ id: game.id, players, count: game.count });
-  updateGames(newGame);
-  return newGame;
+  let game = prepareGame(gameId);
+  game = Game({ ...game, count: game.count });
+  updateGames(game);
+  return game;
 }
 
 export function playerLeave(playerId, gameId) {
-  let game = games[gameId];
+  let game = getGameById(gameId);
 
   if (!game.isFinished) {
-    game = resignGame({ playerId, gameId });
+    game = resignGame(playerId, gameId);
     return leaveGame(playerId);
   }
   return leaveGame(playerId);

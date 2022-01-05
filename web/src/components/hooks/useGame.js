@@ -1,19 +1,17 @@
 import { useEffect, useRef, useState } from "react";
 
 let ws;
-// let playerId;
 export default function useGame() {
   const [isPlay, setIsPlay] = useState(false);
   const [notify, setNotify] = useState(null);
   const [game, setGame] = useState(null);
   const [isFinished, setFinished] = useState(false);
   const [gameResult, setGameResult] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
   const player = useRef({ id: null, nickname: "" });
+  const [players, setPlayers] = useState([]);
 
   function joinGame(nickname) {
     if (!player.current.nickname) player.current.nickname = nickname;
-    setIsLoading(true);
     const requestBody = {
       type: "join-game",
       playerId: player.current.id,
@@ -56,7 +54,7 @@ export default function useGame() {
   }
 
   useEffect(() => {
-    if (!ws) ws = new WebSocket("ws://192.168.1.8:8080");
+    if (!ws) ws = new WebSocket("ws://localhost:8080");
 
     ws.onmessage = function (message) {
       const response = JSON.parse(message.data);
@@ -65,7 +63,6 @@ export default function useGame() {
       }
 
       if (response.type === "join-game") {
-        console.log(response);
         const { isGameStarted } = response;
         if (!isGameStarted) {
           setGame(null);
@@ -76,30 +73,30 @@ export default function useGame() {
       if (response.type === "update-game") {
         setFinished(false);
 
-        const gameObj = {
-          ...response.game,
-          isTurn: response.game.players[player.current.id].isTurn,
-        };
+        setGame({
+          id: response.id,
+          board: response.board,
+          isTurn: response.isTurn === player.current.id,
+          count: response.count,
+        });
 
-        setGame((game) => ({ ...game, ...gameObj }));
+        setPlayers(response.players);
       }
 
       if (response.type === "end-game") {
-        console.log(response);
-        const { wonBy } = response;
+        const { wonBy, isDraw, cells } = response;
 
         setFinished(true);
         setNotify(null);
-        const result = !wonBy
+        const result = isDraw
           ? "Draw!"
-          : wonBy.playerId === player.current.id
+          : wonBy.id === player.current.id
           ? "You Won!"
           : "You Lost!";
         setGameResult(result);
       }
 
       if (response.type === "notify") {
-        console.log({ response });
         setNotify(response.message);
       }
     };
@@ -136,5 +133,6 @@ export default function useGame() {
     notify,
     gameResult,
     isFinished,
+    players,
   };
 }

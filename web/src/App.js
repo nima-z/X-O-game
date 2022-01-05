@@ -18,6 +18,7 @@ function App() {
     resign,
     rematch,
     notify,
+    players,
     gameResult,
   } = useGame();
 
@@ -39,7 +40,6 @@ function App() {
       {!isPlay && (
         <StartingPage startAction={startGameHandler} notify={notify} />
       )}
-
       {isFinished && (
         <GameResult
           onNewGame={startGameHandler}
@@ -48,8 +48,10 @@ function App() {
           notifyMsg={notify}
         />
       )}
+
       <MainTable
         game={game ? game : initialGameData}
+        players={players}
         extractor={extractor}
         onResign={resign}
       />

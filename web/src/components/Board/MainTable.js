@@ -4,12 +4,12 @@ import NavScore from "../Nav/NavScore";
 
 import styles from "./MainTable.module.css";
 
-function MainTable({ game, extractor, onResign }) {
+function MainTable({ game, extractor, onResign, players }) {
   return (
     <div className={styles.container}>
       <div className="boardAndScore">
         <Board game={game} extractor={extractor} />
-        <NavScore players={game.players} allGames={game.count} />
+        <NavScore players={players} allGames={game.count} />
       </div>
       <div className={styles.options}>
         <NavOption onResign={onResign} />
